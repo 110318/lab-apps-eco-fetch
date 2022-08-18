@@ -1,10 +1,11 @@
-const pokemonTarget = document.querySelector('[data-pokemon-card]');
-const pokemonName = document.querySelector('[data-pokemon-name]');
-const pokemonImg = document.querySelector('[data-pokemon-img]');
-const pokemonContainerImg = document.querySelector('[data-pokemon-img-container]');
-const pokemonId = document.querySelector('[data-pokemon-id]');
-const pokemonTypes = document.querySelector('[data-pokemon-types]');
-const pokemonStats = document.querySelector('[data-pokemon-stats]');
+
+const pokemonCard = document.querySelector('[data-poke-card]');
+const pokemonName = document.querySelector('[data-poke-name]');
+const pokemonImg = document.querySelector('[data-poke-img]');
+const pokemonImgContainer = document.querySelector('[data-poke-img-container]');
+const pokemonId = document.querySelector('[data-poke-id]');
+const pokemonTypes = document.querySelector('[data-poke-types]');
+const pokemonStats = document.querySelector('[data-poke-stats]');
 
 const typeColors = {
   electric: '#FFEA70',
@@ -40,10 +41,10 @@ const renderPokemonData = data => {
   const { stats, types } = data;
   console.log(data)
 
-  pokeName.textContent = data.name;
-  pokeImg.setAttribute('src', sprite);
-  pokeId.textContent = `Nº ${data.id}`;
-  setPokemonColor(types);
+  pokemonName.textContent = data.name;
+  pokemonImg.setAttribute('src', sprite);
+  pokemonId.textContent = `Nº ${data.id}`;
+  setCardColor(types);
   renderPokemonTypes(types);
   renderPokemonStats(stats)
 
@@ -53,25 +54,24 @@ const renderPokemonData = data => {
 }
 
 
-const setPokemonColor = types => {
+const setCardColor = types => {
   const colorOne = typeColors[types[0].type.name];
   const colorTwo = types[1] ? typeColors[types[1].type.name] : typeColors.default;
-  pokeImg.style.background =  `radial-gradient(${colorTwo} 33%, ${colorOne} 33%)`;
-  pokeImg.style.backgroundSize = ' 5px 5px';
+  pokemonImg.style.background =  `radial-gradient(${colorTwo} 33%, ${colorOne} 33%)`;
+  pokemonImg.style.backgroundSize = ' 5px 5px';
 }
-
 const renderPokemonTypes = types => {
-  pokeTypes.innerHTML= '';
+  pokemonTypes.innerHTML= '';
   types.forEach(type => {
     const typeTextElement = document.createElement("div");
     typeTextElement.style.color = typeColors[type.type.name];
     typeTextElement.textContent=type.type.name
-    pokeTypes.appendChild(typeTextElement)
+    pokemonTypes.appendChild(typeTextElement)
   });
 }
 
 const renderPokemonStats = stats => {
-  pokeStats.innerHTML= '';
+  pokemonStats.innerHTML= '';
   stats.forEach(stat => {
     const statElement = document.createElement('div');
     const statElementName = document.createElement('div')
@@ -80,20 +80,9 @@ const renderPokemonStats = stats => {
     statElementAmount.textContent= stat.base_stat
     statElement.appendChild(statElementName);
     statElement.appendChild(statElementAmount);
-    pokeStats.appendChild(statElement)
+    pokemonStats.appendChild(statElement)
   });
 }
 
 
 
-
-
-function setup() {
-  createCanvas(400, 400);
-
-
-}
-
-function draw() {
-  background(220);
-}
